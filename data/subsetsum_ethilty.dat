@@ -1,0 +1,38 @@
+900
+833
+410
+352
+457
+738
+497
+785
+814
+650
+168
+586
+778
+428
+632
+403
+291
+805
+812
+377
+151
+136
+570
+505
+231
+31
+$
+
+Solution 1 (Found via Recursive Brute-force Algorithm)
+497 403
+
+Solution 2 (Found via Heuristic Described Below)
+168 410 291 31
+
+The heuristic used to find Solution 2 is a modified iterative greedy algorithm, where at each step the action which moves
+the subset sum closer to the target sum is taken. The subset sum is allowed to exceed the target sum, and elements
+can be removed from the subset. Crucially, if an action would produce a subset sum which has already been seen, that action
+cannot be performed, which encourages the heuristic to explore the problem space.
