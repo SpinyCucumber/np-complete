@@ -1,4 +1,4 @@
-# Spring 2023 CS 470 Final Project (NP-Complete Project)
+# Spring 2023 CS 470 Final Project
 
 This project is a foray into the world of NP-Complete problems. It provides a brute-force solver for the **Subset Sum Problem** as well as a more space-intensive heuristic.
 Reductions from the Subset Sum Problem to the **Boolean Satisfiability Problem** and from the **Partition Problem** to the Subset Sum Problem are also provided.
