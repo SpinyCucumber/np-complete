@@ -59,7 +59,7 @@ def reduce_subset_sum_sat(subset_sum: SubsetSum, num_bits: int) -> Sat:
     # We also convert to simplified CNF
     T = to_binary(subset_sum.target, num_bits)
     expression = And(*[~(S[i] ^ T[i]) for i in range(num_bits)])
-    return Sat(to_cnf(expression, simplify=True))
+    return Sat(to_cnf(expression))
 
 def reduce_partition_subset_sum(partition: Partition) -> SubsetSum:
     """

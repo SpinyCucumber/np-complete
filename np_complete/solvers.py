@@ -5,6 +5,24 @@ def find_subset_exhaustive(subset_sum: SubsetSum) -> set[int]:
     Subset Sum Brute-force Search
 
     Uses a recursive, exponential-time algorithm to search the entire problem space.
+    """
+
+    def find_subset(index: int, target: int, included: set[int]):
+        if target == 0:
+            return included
+        if target < 0 or index == len(subset_sum.numbers):
+            return None
+        # Recursive case
+        num = subset_sum.numbers[index]
+        return find_subset(index + 1, target - num, included | {num}) or find_subset(index + 1, target, included)
+
+    return find_subset(0, subset_sum.target, frozenset())
+
+def find_subset_optimized(subset_sum: SubsetSum) -> set[int]:
+    """
+    Subset Sum Brute-force Search (Optimized)
+
+    Uses a recursive, exponential-time algorithm to search the entire problem space.
     For each recursive branch, if the target sum is greater than the total sum or less than 0, we terminate the branch.
     If the target sum is 0 or equal to the total sum, we have found a solution
     """
@@ -18,7 +36,7 @@ def find_subset_exhaustive(subset_sum: SubsetSum) -> set[int]:
         s += num
     cumulative_sum.append(s)
 
-    def _find_subset(index: int, target: int, included: set[int]):
+    def find_subset(index: int, target: int, included: set[int]):
         # We calculate the total sum of the numbers in the set
         # Note that the set is determined by slicing the original set
         high = cumulative_sum[-1] - cumulative_sum[index]
@@ -33,11 +51,11 @@ def find_subset_exhaustive(subset_sum: SubsetSum) -> set[int]:
             return included
         # Recursive case
         num = subset_sum.numbers[index]
-        return _find_subset(index + 1, target - num, included | {num}) or _find_subset(index + 1, target, included)
+        return find_subset(index + 1, target - num, included | {num}) or find_subset(index + 1, target, included)
 
-    return _find_subset(0, subset_sum.target, frozenset())
+    return find_subset(0, subset_sum.target, frozenset())
 
-def find_subset_fast(subset_sum: SubsetSum) -> set[int]:
+def find_subset_greedy(subset_sum: SubsetSum) -> set[int]:
 
     # Sort elements
     deck = list(subset_sum.numbers)
@@ -71,11 +89,10 @@ def find_subset_fast(subset_sum: SubsetSum) -> set[int]:
             deck.append(moved)
 
         # Record sum
-        print(moved)
         previous_sums.add(hand_sum)
         num_iters += 1
 
     # Hand contains solution
     return set(hand)
 
-__all__ = ["find_subset_exhaustive", "find_subset_fast"]
+__all__ = ["find_subset_exhaustive", "find_subset_optimized", "find_subset_greedy"]
