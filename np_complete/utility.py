@@ -48,13 +48,21 @@ def read_partition(file_or_path: FileOrPath) -> Partition:
     numbers = [int(line) for line in read_lines(file_or_path)]
     return Partition(numbers)
 
-def write_sat(io: TextIO, sat: Sat, to_index: Callable[[Symbol], int]):
+def write_sat(file_or_path: FileOrPath, sat: Sat, to_index: Callable[[Symbol], int]):
     """
     Seralizes an instance of the SAT problem and writes it to a file
 
     Must provide a mapping between symbol and index, as variables are represented internally as symbols
     but must be serialized as indicies.
+    Accepts either a file obejct or a path.
     """
+
+    # Convert to file if necessary
+    if isinstance(file_or_path, str):
+        with open(file_or_path, "w") as file:
+            return write_sat(file, sat, to_index)
+    
+    file = file_or_path
 
     def serialize_literal(literal: Union[Symbol, Not]) -> str:
         result = ""
@@ -68,4 +76,4 @@ def write_sat(io: TextIO, sat: Sat, to_index: Callable[[Symbol], int]):
     
     # Output each clause as a line
     for clause in sat.expression.args:
-        print(" ".join(map(serialize_literal, clause.args)), file=io)
+        print(" ".join(map(serialize_literal, clause.args)), file=file)
