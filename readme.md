@@ -30,4 +30,4 @@ This project is meant to be interacted with via the Python shell. To enter a Pyt
 python -i -m np_complete
 ```
 
-For a comprehensive list of definitions, documentation is provided in [documentation.html].
+For a comprehensive list of definitions, consult the [documentation](documentation.html).
