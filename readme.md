@@ -31,3 +31,11 @@ python -i -m np_complete
 ```
 
 For a comprehensive list of definitions, consult the [documentation](documentation.html).
+
+A [test.py] is also provided, which is a command-line interface to compare the speed of several subset sum algorithms. To run the benchmark, use the following syntax:
+
+```
+python ./tests.py ./data/subset_sum_ethilty.dat 10000
+```
+
+where the first argument is the problem definition file and the second argument is the number of test iterations to run for each algorithm.
