@@ -56,43 +56,7 @@ def find_subset_optimized(subset_sum: SubsetSum) -> set[int]:
     return find_subset(0, subset_sum.target, frozenset())
 
 def find_subset_greedy(subset_sum: SubsetSum) -> set[int]:
-
-    # Sort elements
-    deck = list(subset_sum.numbers)
-    hand = []
-    hand_sum = 0
-    previous_sums = {hand_sum}
-    num_iters = 0
-
-    def is_valid_weight(weight):
-        return not (weight + hand_sum) in previous_sums
-
-    # Iterate until solution found
-    while hand_sum != subset_sum.target:
-
-        # Find element closest to requirement that doesn't produce sum previously seen
-        # This is a memory-intensive algorithm
-        diff = subset_sum.target - hand_sum
-        weights = filter(lambda pair: is_valid_weight(pair[1]), enumerate([-elem for elem in hand] + deck))
-        residuals = [(index, abs(weight - diff)) for index, weight in weights]
-        # If no possible elements to move, all sums exhausted
-        if len(residuals) == 0: return None
-
-        min_index = min(residuals, key=lambda pair: pair[1])[0]
-        if min_index >= len(hand):
-            moved = deck.pop(min_index - len(hand))
-            hand_sum += moved
-            hand.append(moved)
-        else:
-            moved = hand.pop(min_index)
-            hand_sum -= moved
-            deck.append(moved)
-
-        # Record sum
-        previous_sums.add(hand_sum)
-        num_iters += 1
-
-    # Hand contains solution
-    return set(hand)
+    subset_sum_sorted = SubsetSum(subset_sum.target, sorted(subset_sum.numbers, reverse=True))
+    return find_subset_optimized(subset_sum_sorted)
 
 __all__ = ["find_subset_exhaustive", "find_subset_optimized", "find_subset_greedy"]
