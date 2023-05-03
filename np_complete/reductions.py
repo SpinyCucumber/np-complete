@@ -71,3 +71,5 @@ def reduce_partition_subset_sum(partition: Partition) -> SubsetSum:
     """
     s = sum(partition.numbers)
     return SubsetSum(s/2, partition.numbers)
+
+__all__ = ["reduce_subset_sum_sat", "reduce_partition_subset_sum"]
