@@ -30,10 +30,10 @@ This project is meant to be interacted with via the Python shell. To enter a Pyt
 python -i -m np_complete
 ```
 
-For a comprehensive list of definitions, consult the [documentation](np_complete.html).
+For a comprehensive list of definitions, consult the [documentation](https://spinycucumber.github.io/np-complete/).
 
-A [tests.py](tests.py) file is also provided, which is a command-line interface to compare the speed of several subset sum algorithms.
-To run the benchmark, use the following syntax:
+A [test](tests.py) file is also provided, which is a command-line interface to compare the speed of several subset sum algorithms.
+To run the tests, use the following syntax:
 
 ```
 python ./tests.py ./data/subset_sum_ethilty.dat 10000
