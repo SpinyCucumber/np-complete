@@ -1,3 +1,6 @@
+# CS 470 Spring 2023, The University of Alabama
+# Elijah Hilty
+
 from .definitions import SubsetSum
 
 def find_subset_exhaustive(subset_sum: SubsetSum) -> set[int]:

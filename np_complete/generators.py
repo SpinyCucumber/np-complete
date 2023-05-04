@@ -1,3 +1,6 @@
+# CS 470 Spring 2023, The University of Alabama
+# Elijah Hilty
+
 from random import randrange
 from .definitions import SubsetSum
 

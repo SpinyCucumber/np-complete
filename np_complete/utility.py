@@ -1,3 +1,6 @@
+# CS 470 Spring 2023, The University of Alabama
+# Elijah Hilty
+
 from typing import TextIO, Generator, Callable, Union, Iterable
 from sympy import Symbol
 from sympy.logic.boolalg import Not, BooleanFunction

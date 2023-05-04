@@ -1,3 +1,6 @@
+# CS 470 Spring 2023, The University of Alabama
+# Elijah Hilty
+
 from sympy.logic import true, false, And, to_cnf
 from sympy import symbols
 from .definitions import SubsetSum, Sat, Partition
