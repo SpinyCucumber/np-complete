@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Subset Sum Solvers - NP-Complete Project</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Subset Sum Solvers";
+        var mkdocs_page_input_path = "solvers.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> NP-Complete Project
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../definitions/">Problem Definitions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../generators/">Data Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../reductions/">Reductions</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Subset Sum Solvers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.solvers">np_complete.solvers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.solvers.find_subset_exhaustive">find_subset_exhaustive()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.solvers.find_subset_greedy">find_subset_greedy()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.solvers.find_subset_optimized">find_subset_optimized()</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../utility/">Utility</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">NP-Complete Project</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+      <li>Subset Sum Solvers</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="subset-sum-solvers">Subset Sum Solvers</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="np_complete.solvers"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.solvers.find_subset_exhaustive" class="doc doc-heading">
+<code class="highlight language-python">find_subset_exhaustive(subset_sum)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Subset Sum Brute-force Search</p>
+<p>Uses a recursive, exponential-time algorithm to search the entire problem space.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\solvers.py</code></summary>
+        <pre class="highlight"><code class="language-python">def find_subset_exhaustive(subset_sum: SubsetSum) -&gt; set[int]:
+    """
+    Subset Sum Brute-force Search
+
+    Uses a recursive, exponential-time algorithm to search the entire problem space.
+    """
+
+    def find_subset(index: int, target: int, included: set[int]):
+        if target == 0:
+            return included
+        if target &lt; 0 or index == len(subset_sum.numbers):
+            return None
+        # Recursive case
+        num = subset_sum.numbers[index]
+        return find_subset(index + 1, target - num, included | {num}) or find_subset(index + 1, target, included)
+
+    return find_subset(0, subset_sum.target, frozenset())</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.solvers.find_subset_greedy" class="doc doc-heading">
+<code class="highlight language-python">find_subset_greedy(subset_sum)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Subset Sum Brute-force Search (Greedy Approach)</p>
+<p>This is an extremely simple improvement to the optimized brute-force search,
+which sorts the numbers in descending order before searching for a solution.
+Because the search algorithm considers numbers near the front of the list first,
+our odds of quickly finding a solution are increased. This is especially noticeable for uniform, random numbers.
+However, certain problems will cause the greedy approach to take longer than the unsorted approach.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\solvers.py</code></summary>
+        <pre class="highlight"><code class="language-python">def find_subset_greedy(subset_sum: SubsetSum) -&gt; set[int]:
+    """
+    Subset Sum Brute-force Search (Greedy Approach)
+
+    This is an extremely simple improvement to the optimized brute-force search,
+    which sorts the numbers in descending order before searching for a solution.
+    Because the search algorithm considers numbers near the front of the list first,
+    our odds of quickly finding a solution are increased. This is especially noticeable for uniform, random numbers.
+    However, certain problems will cause the greedy approach to take longer than the unsorted approach.
+    """
+    subset_sum_sorted = SubsetSum(subset_sum.target, sorted(subset_sum.numbers, reverse=True))
+    return find_subset_optimized(subset_sum_sorted)</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.solvers.find_subset_optimized" class="doc doc-heading">
+<code class="highlight language-python">find_subset_optimized(subset_sum)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Subset Sum Brute-force Search (Optimized?)</p>
+<p>Uses a recursive, exponential-time algorithm to search the entire problem space.
+For each recursive branch, if the target sum is greater than the total sum or less than 0, we terminate the branch.
+If the target sum is 0 or equal to the total sum, we have found a solution.
+In theory, these optimizations should help us avoid branches which will never produce a solution, although some overhead is introduced.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\solvers.py</code></summary>
+        <pre class="highlight"><code class="language-python">def find_subset_optimized(subset_sum: SubsetSum) -&gt; set[int]:
+    """
+    Subset Sum Brute-force Search (Optimized?)
+
+    Uses a recursive, exponential-time algorithm to search the entire problem space.
+    For each recursive branch, if the target sum is greater than the total sum or less than 0, we terminate the branch.
+    If the target sum is 0 or equal to the total sum, we have found a solution.
+    In theory, these optimizations should help us avoid branches which will never produce a solution, although some overhead is introduced.
+    """
+
+    # Preprocessing involves finding cumulative sums
+    # len(cumulative_sum) = len(numbers) + 1
+    # Final element is total sum
+    s = 0
+    cumulative_sum = []
+    for num in subset_sum.numbers:
+        cumulative_sum.append(s)
+        s += num
+    cumulative_sum.append(s)
+
+    def find_subset(index: int, target: int, included: set[int]):
+        # We calculate the total sum of the numbers in the set
+        # Note that the set is determined by slicing the original set
+        high = cumulative_sum[-1] - cumulative_sum[index]
+        # Base cases
+        if target &gt; high:
+            return None
+        if target == high:
+            return included | set(subset_sum.numbers[index:])
+        if target &lt; 0:
+            return None
+        if target == 0:
+            return included
+        # Recursive case
+        num = subset_sum.numbers[index]
+        return find_subset(index + 1, target - num, included | {num}) or find_subset(index + 1, target, included)
+
+    return find_subset(0, subset_sum.target, frozenset())</code></pre>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../reductions/" class="btn btn-neutral float-left" title="Reductions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../utility/" class="btn btn-neutral float-right" title="Utility">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../reductions/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../utility/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

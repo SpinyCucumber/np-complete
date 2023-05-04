@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Reductions - NP-Complete Project</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Reductions";
+        var mkdocs_page_input_path = "reductions.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> NP-Complete Project
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../definitions/">Problem Definitions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../generators/">Data Generation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Reductions</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions">np_complete.reductions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions.full_adder">full_adder()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions.half_adder">half_adder()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions.reduce_partition_subset_sum">reduce_partition_subset_sum()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions.reduce_subset_sum_sat">reduce_subset_sum_sat()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions.ripple_adder">ripple_adder()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#np_complete.reductions.to_binary">to_binary()</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../solvers/">Subset Sum Solvers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../utility/">Utility</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">NP-Complete Project</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+      <li>Reductions</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="reductions">Reductions</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="np_complete.reductions"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.reductions.full_adder" class="doc doc-heading">
+<code class="highlight language-python">full_adder(a, b, c)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructs a full-adder from 3 boolean expressions</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\reductions.py</code></summary>
+        <pre class="highlight"><code class="language-python">def full_adder(a, b, c):
+    """
+    Constructs a full-adder from 3 boolean expressions
+    """
+    s0, c0 = half_adder(a, b)
+    s1, c1 = half_adder(s0, c)
+    return (s1, c0 | c1)</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.reductions.half_adder" class="doc doc-heading">
+<code class="highlight language-python">half_adder(a, b)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructs a half-adder from 2 boolean expressions</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\reductions.py</code></summary>
+        <pre class="highlight"><code class="language-python">def half_adder(a, b):
+    """
+    Constructs a half-adder from 2 boolean expressions
+    """
+    return (a ^ b, a &amp; b)</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.reductions.reduce_partition_subset_sum" class="doc doc-heading">
+<code class="highlight language-python">reduce_partition_subset_sum(partition)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Converts an instance of the partition problem to an equisatisfiable subset sum problem.
+That is, a solution to the input problem only if a the produced problem is satisfiable.</p>
+<p>This is a very simple reduction which only requires summing the set if numbers and
+checking if a subset sums to half the total sum. Consequently, if the total sum is odd, no solution exists.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\reductions.py</code></summary>
+        <pre class="highlight"><code class="language-python">def reduce_partition_subset_sum(partition: Partition) -&gt; SubsetSum:
+    """
+    Converts an instance of the partition problem to an equisatisfiable subset sum problem.
+    That is, a solution to the input problem only if a the produced problem is satisfiable.
+
+    This is a very simple reduction which only requires summing the set if numbers and
+    checking if a subset sums to half the total sum. Consequently, if the total sum is odd, no solution exists.
+    """
+    s = sum(partition.numbers)
+    return SubsetSum(s/2, partition.numbers)</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.reductions.reduce_subset_sum_sat" class="doc doc-heading">
+<code class="highlight language-python">reduce_subset_sum_sat(subset_sum, num_bits)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Converts an instance of the subset sum problem to an equisatisfiable SAT problem.
+That is, a solution to the input problem only if a the produced problem is satisfiable.</p>
+<p>This works by constructing an addition circuit equivalent to the subset sum problem.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\reductions.py</code></summary>
+        <pre class="highlight"><code class="language-python">def reduce_subset_sum_sat(subset_sum: SubsetSum, num_bits: int) -&gt; Sat:
+    """
+    Converts an instance of the subset sum problem to an equisatisfiable SAT problem.
+    That is, a solution to the input problem only if a the produced problem is satisfiable.
+
+    This works by constructing an addition circuit equivalent to the subset sum problem.
+    """
+    # For each number in the set, we create an "enable bit."
+    # These enable inputs are the variables in our SAT problem. The number is only
+    # included in the subset of its enable bit is 1.
+    n = len(subset_sum.numbers)
+    enable = symbols(f"en:{n}")
+    # We construct an adder chain, where the input to each adder is either 0 or a number
+    # in the set, depending on the enable bit.
+    S = [false for i in range(num_bits)]
+    for i in range(n):
+        A = [a &amp; enable[i] for a in to_binary(subset_sum.numbers[i], num_bits)]
+        S = ripple_adder(A, S)
+    # We compare the final output to the target sum, producing the final expression
+    # Comparison is performed using inverted XOR
+    # We also convert to simplified CNF
+    T = to_binary(subset_sum.target, num_bits)
+    expression = And(*[~(S[i] ^ T[i]) for i in range(num_bits)])
+    return Sat(to_cnf(expression))</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.reductions.ripple_adder" class="doc doc-heading">
+<code class="highlight language-python">ripple_adder(A, B)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructs a ripple-carry adder which adds together two binary numbers</p>
+<p>a and b are arrays of boolean expressions and must have same length</p>
+<p>Produces an array of boolean expressions of the same length which is the sum</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\reductions.py</code></summary>
+        <pre class="highlight"><code class="language-python">def ripple_adder(A, B):
+    """
+    Constructs a ripple-carry adder which adds together two binary numbers
+
+    a and b are arrays of boolean expressions and must have same length
+
+    Produces an array of boolean expressions of the same length which is the sum
+    """
+    assert len(A) == len(B)
+    c = false # Input to carry of next full adder
+    S = [] # Sum bits
+    for i in range(len(A)):
+        s, c = full_adder(A[i], B[i], c)
+        S.append(s)
+    return S</code></pre>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="np_complete.reductions.to_binary" class="doc doc-heading">
+<code class="highlight language-python">to_binary(n, num_bits)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Converts a number into an array of boolean values, which is its binary representation</p>
+
+      <details class="quote">
+        <summary>Source code in <code>np_complete\reductions.py</code></summary>
+        <pre class="highlight"><code class="language-python">def to_binary(n: int, num_bits: int):
+    """
+    Converts a number into an array of boolean values, which is its binary representation
+    """
+    result = []
+    for i in range(num_bits):
+        result.append(true if n % 2 else false)
+        n = n // 2
+    return result</code></pre>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../generators/" class="btn btn-neutral float-left" title="Data Generation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../solvers/" class="btn btn-neutral float-right" title="Subset Sum Solvers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../generators/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../solvers/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
