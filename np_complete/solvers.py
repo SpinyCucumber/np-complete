@@ -20,13 +20,15 @@ def find_subset_exhaustive(subset_sum: SubsetSum) -> set[int]:
 
 def find_subset_optimized(subset_sum: SubsetSum) -> set[int]:
     """
-    Subset Sum Brute-force Search (Optimized)
+    Subset Sum Brute-force Search (Optimized?)
 
     Uses a recursive, exponential-time algorithm to search the entire problem space.
     For each recursive branch, if the target sum is greater than the total sum or less than 0, we terminate the branch.
-    If the target sum is 0 or equal to the total sum, we have found a solution
+    If the target sum is 0 or equal to the total sum, we have found a solution.
+    In theory, these optimizations should help us avoid branches which will never produce a solution, although some overhead is introduced.
     """
 
+    # Preprocessing involves finding cumulative sums
     # len(cumulative_sum) = len(numbers) + 1
     # Final element is total sum
     s = 0
@@ -56,6 +58,15 @@ def find_subset_optimized(subset_sum: SubsetSum) -> set[int]:
     return find_subset(0, subset_sum.target, frozenset())
 
 def find_subset_greedy(subset_sum: SubsetSum) -> set[int]:
+    """
+    Subset Sum Brute-force Search (Greedy Approach)
+
+    This is an extremely simple improvement to the optimized brute-force search,
+    which sorts the numbers in descending order before searching for a solution.
+    Because the search algorithm considers numbers near the front of the list first,
+    our odds of quickly finding a solution are increased. This is especially noticeable for uniform, random numbers.
+    However, certain problems will cause the greedy approach to take longer than the unsorted approach.
+    """
     subset_sum_sorted = SubsetSum(subset_sum.target, sorted(subset_sum.numbers, reverse=True))
     return find_subset_optimized(subset_sum_sorted)
 

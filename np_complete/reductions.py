@@ -3,9 +3,15 @@ from sympy import symbols
 from .definitions import SubsetSum, Sat, Partition
 
 def half_adder(a, b):
+    """
+    Constructs a half-adder from 2 boolean expressions
+    """
     return (a ^ b, a & b)
 
 def full_adder(a, b, c):
+    """
+    Constructs a full-adder from 3 boolean expressions
+    """
     s0, c0 = half_adder(a, b)
     s1, c1 = half_adder(s0, c)
     return (s1, c0 | c1)
