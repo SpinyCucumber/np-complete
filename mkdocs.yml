@@ -1,0 +1,7 @@
+site_name: NP-Complete Project
+
+theme:
+  name: "readthedocs"
+
+plugins:
+  - mkdocstrings
