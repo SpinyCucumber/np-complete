@@ -30,7 +30,7 @@ This project is meant to be interacted with via the Python shell. To enter a Pyt
 python -i -m np_complete
 ```
 
-For a comprehensive list of definitions, consult the [documentation](documentation.html).
+For a comprehensive list of definitions, consult the [documentation](np_complete.html).
 
 A [tests.py](tests.py) file is also provided, which is a command-line interface to compare the speed of several subset sum algorithms.
 To run the benchmark, use the following syntax:
