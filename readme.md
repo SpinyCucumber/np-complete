@@ -40,3 +40,5 @@ python ./tests.py ./data/subset_sum_ethilty.dat 10000
 ```
 
 where the first argument is the problem definition file and the second argument is the number of test iterations to run for each algorithm.
+Problem definitions are provided in the [data folder](data). Three subset sum instances are provided as well as a small partition instance.
+`subset_sum_skim.dat` was produced by reduction from a 3-dimensional mapping problem by Sungmin Kim.
